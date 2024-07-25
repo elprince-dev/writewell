@@ -1,10 +1,11 @@
 import Image from "next/image";
-import styles from "./page.module.css";
+import "./page.scss";
+import Home from "@/components/Home";
 
-export default function Home() {
+export default function page() {
   return (
-    <main className={styles.main}>
-      
+    <main className="app">
+      <Home />
     </main>
   );
 }

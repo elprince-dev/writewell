@@ -1,0 +1,16 @@
+@use "variables" as *;
+
+.navbar {
+
+    .navbar_container {
+        padding: 10px 0px;
+        display: flex;
+        justify-content: space-between;
+        .logo{
+
+        }
+        .links{
+
+        }
+    }
+}

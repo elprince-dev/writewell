@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/signin.scss";
+import "../styles/register.scss";
 import Link from "next/link";
 
 const Register = () => {

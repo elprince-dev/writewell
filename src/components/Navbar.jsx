@@ -2,7 +2,7 @@ import React from "react";
 import "../styles/navbar.scss";
 import Link from "next/link";
 
-const categories = ["art", "science", "technology", "cinema", "design", "food"];
+export const categories = ["art", "science", "technology", "cinema", "design", "food"];
 
 const Navbar = () => {
   return (

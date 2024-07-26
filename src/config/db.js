@@ -6,3 +6,8 @@ export const db = mysql.createConnection({
   password: process.env.NEXT_PUBLIC_DB_PASSWORD,
   database: process.env.NEXT_PUBLIC_DB_NAME,
 });
+
+export const query = async (sql, params) => {
+  const [rows] = await db.execute(sql, params);
+  return rows;
+};

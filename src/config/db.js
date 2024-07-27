@@ -1,13 +1,31 @@
-import mysql from "mysql";
+// import mysql from "mysql2/promise";
 
-export const db = mysql.createConnection({
-  host: "localhost",
-  user: process.env.NEXT_PUBLIC_DB_USER,
-  password: process.env.NEXT_PUBLIC_DB_PASSWORD,
-  database: process.env.NEXT_PUBLIC_DB_NAME,
-});
+// export const connection = await mysql.createConnection({
+//   host: "localhost",
+//   user: "mohamed",
+//   database: process.env.NEXT_PUBLIC_DB_NAME,
+//   password: process.env.NEXT_PUBLIC_DB_PASSWORD,
+// });
 
-export const query = async (sql, params) => {
-  const [rows] = await db.execute(sql, params);
-  return rows;
-};
+import mysql from "mysql2/promise";
+
+export async function query({ query, values = [] }) {
+ 
+
+  //Digital ocean ubuntu
+  const dbconnection = await mysql.createConnection({
+    host: "localhost",
+    user: "mohamed",
+    database: process.env.NEXT_PUBLIC_DB_NAME,
+    password: process.env.NEXT_PUBLIC_DB_PASSWORD,
+  });
+
+  try {
+    const [results] = await dbconnection.execute(query, values);
+    dbconnection.end();
+    return results;
+  } catch (error) {
+    throw Error(error.message);
+    return { error };
+  }
+}

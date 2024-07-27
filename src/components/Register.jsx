@@ -7,6 +7,8 @@ const Register = () => {
     <div className="auth">
       <h1>Register</h1>
       <form>
+        <input required type="text" placeholder="first name" />
+        <input required type="text" placeholder="last name" />
         <input required type="text" placeholder="username" />
         <input required type="email" placeholder="email" />
         <input required type="password" placeholder="password" />

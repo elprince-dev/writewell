@@ -5,7 +5,7 @@ export async function POST(req) {
   // Parse the request body
   const { first_name, last_name, username, email, password } = await req.json();
 
-  //check if user exitst
+  //check if user exists
   const q = "SELECT * FROM users WHERE username = ? or email = ?";
   const data = await query({
     query: q,

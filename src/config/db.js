@@ -10,9 +10,7 @@
 import mysql from "mysql2/promise";
 
 export async function query({ query, values = [] }) {
- 
-
-  //Digital ocean ubuntu
+  //connect
   const dbconnection = await mysql.createConnection({
     host: "localhost",
     user: "mohamed",

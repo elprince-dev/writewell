@@ -1,3 +1,4 @@
+import { UserProvider } from "@/utilities/UserContext";
 import { Inter } from "next/font/google";
 
 // const inter = Inter({ subsets: ["latin"] });
@@ -11,7 +12,9 @@ export default function SigninLayout({ children }) {
   return (
     <html>
       <body style={{ margin: 0 }}>
-        <main>{children}</main>
+        <UserProvider>
+          <main>{children}</main>
+        </UserProvider>
       </body>
     </html>
   );

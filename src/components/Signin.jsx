@@ -1,9 +1,10 @@
 "use client";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "../styles/signin.scss";
 import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { userContext } from "@/utilities/UserContext";
 
 const Signin = () => {
   const [inputs, setInputs] = useState({
@@ -18,15 +19,18 @@ const Signin = () => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  const { signin } = useContext(userContext);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      await axios.post("/api/auth/signin", inputs);
+      // await axios.post("/api/auth/signin", inputs);
+      await signin(inputs);
       setSuccess("You have signed in successfully successfully!");
       setTimeout(() => {
         router.push("/");
-      }, 2000);
+      }, 1500);
     } catch (err) {
       setError(err.response.data);
     }

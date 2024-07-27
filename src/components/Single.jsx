@@ -1,70 +1,54 @@
-import React from "react";
+"use client";
+import React, { useContext, useEffect, useState } from "react";
 import "../styles/single.scss";
 import Link from "next/link";
 import Menu from "@/components/Menu";
-
+import { useSearchParams } from "next/navigation";
+import axios from "axios";
+import moment from "moment";
+import { userContext } from "@/utilities/UserContext";
 const Single = ({ id }) => {
+  const [post, setPost] = useState({});
+  const { currentUser } = useContext(userContext);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const res = await axios.get(`/api/posts/${id}`);
+        setPost(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchPosts();
+  }, [cat]);
   return (
     <div className="single">
       <div className="content">
-        <img src="https://www.w3schools.com/w3images/mountains.jpg" />
+        <img src={post?.img} />
         <div className="user">
           <img src="https://www.w3schools.com/w3images/mountains.jpg" />
           <div className="info">
-            <span>Mohamed</span>
-            <p>posted 2 days ago</p>
+            <span>
+              {post.first_name} {post.last_name}
+            </span>
+            <p>posted {moment(post.date).fromNow()}</p>
           </div>
-          <div className="edit">
-            <Link href={`/write?edit=${id}`}>
-              <img src="/edit.png" />
-            </Link>
+          {currentUser.username === post.username && (
+            <div className="edit">
+              <Link href={`/write?edit=${id}`}>
+                <img src="/edit.png" />
+              </Link>
 
-            <img src="/delete.png" />
-          </div>
+              <img src="/delete.png" />
+            </div>
+          )}
         </div>
-        <h1>Lorem ipsum dolor sit amet consectetur, adip</h1>
-        <p>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aut ipsum
-          ipsa, sit incidunt quas assumenda nostrum accusantium molestiae eaque
-          delectus, laudantium fuga iusto rem aperiam reiciendis, eveniet quidem
-          laboriosam esse. Lorem ipsum dolor sit amet consectetur adipisicing
-          elit. Explicabo ex sequi ratione quisquam, ipsum vel animi doloribus
-          natus delectus quas quo autem similique nisi atque qui exercitationem
-          et ducimus nesciunt? lore Lorem ipsum, dolor sit amet consectetur
-          adipisicing elit. Dolorum quas, vel, aut similique modi repellendus
-          tempora porro ratione ipsam cumque ut hic exercitationem dolore,
-          aperiam nobis. Impedit ullam deserunt eius. Lorem, ipsum dolor sit
-          amet consectetur adipisicing elit. Exercitationem deleniti corrupti
-          quo facilis debitis velit hic ratione nihil, pariatur eos ducimus?
-          Odit dolor velit labore placeat laborum voluptas autem aliquid.
-          delectus, laudantium fuga iusto rem aperiam reiciendis, eveniet quidem
-          laboriosam esse. Lorem ipsum dolor sit amet consectetur adipisicing
-          elit. Explicabo ex sequi ratione quisquam, ipsum vel animi doloribus
-          natus delectus quas quo autem similique nisi atque qui exercitationem
-          et ducimus nesciunt? lore Lorem ipsum, dolor sit amet consectetur
-          adipisicing elit. Dolorum quas, vel, aut similique modi repellendus
-          tempora porro ratione ipsam cumque ut hic exercitationem dolore,
-          aperiam nobis. Impedit ullam deserunt eius. Lorem, ipsum dolor sit
-          amet consectetur adipisicing elit. Exercitationem deleniti corrupti
-          quo facilis debitis velit hic ratione nihil, pariatur eos ducimus?
-          Odit dolor velit labore placeat laborum voluptas autem
-          aliquid.delectus, laudantium fuga iusto rem aperiam reiciendis,
-          eveniet quidem laboriosam esse. Lorem ipsum dolor sit amet consectetur
-          adipisicing elit. Explicabo ex sequi ratione quisquam, ipsum vel animi
-          doloribus natus delectus quas quo autem similique nisi atque qui
-          exercitationem et ducimus nesciunt? lore Lorem ipsum, dolor sit amet
-          consectetur adipisicing elit. Dolorum quas, vel, aut similique modi
-          repellendus tempora porro ratione ipsam cumque ut hic exercitationem
-          dolore, aperiam nobis. Impedit ullam deserunt eius. Lorem, ipsum dolor
-          sit amet consectetur adipisicing elit. Exercitationem deleniti
-          corrupti quo facilis debitis velit hic ratione nihil, pariatur eos
-          ducimus? Odit dolor velit labore placeat laborum voluptas autem
-          aliquid.
-        </p>
+        <h1>{post.title}</h1>
+        {post.desc}
       </div>
-    
-        <Menu />
 
+      <Menu />
     </div>
   );
 };

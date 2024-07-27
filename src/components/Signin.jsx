@@ -34,22 +34,22 @@ const Signin = () => {
   return (
     <div className="auth">
       <h1>Sign in</h1>
-      <form>
+      <form onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="username"
           name="username"
+          value={inputs.username}
           onChange={handleChange}
         />
         <input
           type="password"
           placeholder="password"
           name="password"
+          value={inputs.password}
           onChange={handleChange}
         />
-        <button type="submit" onClick={handleSubmit}>
-          Sign in
-        </button>
+        <button type="submit">Sign in</button>
         {err && <p>{err}</p>}
         {success && <p>{success}</p>}
         <span>

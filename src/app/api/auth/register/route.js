@@ -13,7 +13,7 @@ export async function POST(req) {
   });
 
   if (data.length > 0) {
-    return new Response(JSON.stringify({ error: "User already exists!" }), {
+    return new Response(JSON.stringify("User already exists!"), {
       status: 409,
     });
   }

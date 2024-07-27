@@ -14,7 +14,7 @@ export const UserProvider = ({ children }) => {
   };
 
   const signout = async (inputs) => {
-    const res = await axios.post("/api/auth/signout", inputs);
+    const res = await axios.post("/api/auth/signout");
     setCurerntUser(null);
   };
 

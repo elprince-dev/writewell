@@ -19,7 +19,7 @@ const Signin = () => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const { signin } = useContext(userContext);
+  const { currentUser, signin } = useContext(userContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

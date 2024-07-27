@@ -1,10 +1,20 @@
-import React from "react";
+"use client";
+import React, { useContext } from "react";
 import "../styles/navbar.scss";
 import Link from "next/link";
+import { userContext } from "@/utilities/UserContext";
 
-export const categories = ["art", "science", "technology", "cinema", "design", "food"];
+export const categories = [
+  "art",
+  "science",
+  "technology",
+  "cinema",
+  "design",
+  "food",
+];
 
 const Navbar = () => {
+  const { currentUser, signout } = useContext(userContext);
   return (
     <div className="navbar">
       <div className="navbar_container">
@@ -17,8 +27,14 @@ const Navbar = () => {
               <h6>{cat.toUpperCase()}</h6>
             </Link>
           ))}
-          <span>Mohamed</span>
-          <span>Sign out</span>
+          <span>{currentUser?.username}</span>
+          {currentUser ? (
+            <span onClick={signout}>Sign out</span>
+          ) : (
+            <Link className="link" href="/signin">
+              Sign in
+            </Link>
+          )}
           <span className="write">
             <Link className="link" href="/write">
               Write

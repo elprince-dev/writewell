@@ -9,7 +9,6 @@ import { UserContext } from "@/utilities/UserContext";
 const Single = ({ id }) => {
   const [post, setPost] = useState({});
   const { currentUser } = useContext(UserContext);
-  console.log(currentUser);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -24,13 +23,14 @@ const Single = ({ id }) => {
     fetchPosts();
   }, []);
 
-  console.log(currentUser);
+  console.log(post);
   return (
     <div className="single">
       <div className="content">
         <img src={post?.img} />
         <div className="user">
-          <img src="https://www.w3schools.com/w3images/mountains.jpg" />
+          <img src={post.userImg ? post.userImg : "/default.png"} />
+
           <div className="info">
             <span>
               {post.first_name} {post.last_name}

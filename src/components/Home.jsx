@@ -9,6 +9,7 @@ const Home = () => {
   const [posts, setPosts] = useState([]);
   const searchParams = useSearchParams();
   const cat = searchParams.get("cat");
+  console.log(cat);
 
   useEffect(() => {
     const fetchPosts = async () => {

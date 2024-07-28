@@ -19,7 +19,9 @@ const Navbar = () => {
     <div className="navbar">
       <div className="navbar_container">
         <div className="logo">
-          <img src="/logo.png" alt="" />
+          <Link href="/">
+            <img src="/logo.png" alt="" />
+          </Link>
         </div>
         <div className="links">
           {categories.map((cat, idx) => (

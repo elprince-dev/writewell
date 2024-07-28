@@ -4,7 +4,7 @@ import axios from "axios";
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem("user") ||nul));
+  const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem("user") ||null ));
   //   const [currentUser, setCurerntUser] = useState(JSON.parse(localStorage.getItem("user") ||null);
 
   const signin = async (inputs) => {

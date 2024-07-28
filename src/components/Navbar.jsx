@@ -2,7 +2,7 @@
 import React, { useContext } from "react";
 import "../styles/navbar.scss";
 import Link from "next/link";
-import { userContext } from "@/utilities/UserContext";
+import { UserContext } from "@/utilities/UserContext";
 
 export const categories = [
   "art",
@@ -14,7 +14,7 @@ export const categories = [
 ];
 
 const Navbar = () => {
-  const { currentUser, signout } = useContext(userContext);
+  const { currentUser, signout } = useContext(UserContext);
   return (
     <div className="navbar">
       <div className="navbar_container">

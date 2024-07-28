@@ -5,17 +5,17 @@ export async function GET(req) {
   const url = new URL(req.url);
   const cat = url.searchParams.get("cat");
 
-  const data = cat 
-    ? await query({
-        query: "SELECT * FROM posts WHERE cat = ?",
-        values: [cat],
-      })
-    : await query({
-        query: "SELECT * FROM posts",
-        values: [],
-      });
+  // cat
+  //   ? await query({
+  //       query: "SELECT * FROM posts WHERE cat = ?",
+  //       values: [cat],
+  //     })
+  //   :
 
-  console.log(JSON.stringify("request is succes"));
+  const data = await query({
+    query: "SELECT * FROM posts",
+    values: [],
+  });
 
   return new Response(JSON.stringify(data), { status: 200 });
 }

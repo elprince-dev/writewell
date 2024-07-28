@@ -5,9 +5,11 @@ export async function GET(req, { params }) {
   console.log(id);
 
   const data = await query({
-    query: "SELECT * FROM posts WHERE posts.id = ?",
+    query:
+      "SELECT p.id, `username`, `title`, `desc`, p.img, u.img AS userImg, `cat`,`date` FROM users u JOIN posts p ON u.id = p.user_id WHERE p.id = ? ",
     values: [id],
   });
+  console.log(JSON.stringify(data[0]));
 
   return new Response(JSON.stringify(data[0]), { status: 200 });
 }

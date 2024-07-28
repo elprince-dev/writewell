@@ -1,39 +1,38 @@
 "use client";
 import { createContext, useEffect, useState } from "react";
 import axios from "axios";
-export const userContext = createContext();
+export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const [currentUser, setCurerntUser] = useState(null);
-//   const [currentUser, setCurerntUser] = useState(JSON.parse(localStorage.getItem("user") ||null);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      // Check if the code is running in the browser
-      const storedUser = JSON.parse(localStorage.getItem("user"));
-      if (storedUser) {
-        setCurerntUser(storedUser);
-      }
-    }
-  }, []);
+  const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem("user") ||nul));
+  //   const [currentUser, setCurerntUser] = useState(JSON.parse(localStorage.getItem("user") ||null);
 
   const signin = async (inputs) => {
-    const res = await axios.post("/api/auth/signin", inputs);
-    setCurerntUser(res.data);
+    try {
+      const res = await axios.post("/api/auth/signin", inputs);
+      setCurrentUser(res.data);
+      localStorage.setItem("user", JSON.stringify(res.data));
+    } catch (err) {
+      console.error("Signin failed", err);
+    }
   };
 
-  const signout = async (inputs) => {
-    const res = await axios.post("/api/auth/signout");
-    setCurerntUser(null);
+  const signout = async () => {
+    try {
+      await axios.post("/api/auth/signout");
+      setCurrentUser(null);
+    } catch (err) {
+      console.error("Signout failed", err);
+    }
   };
 
-  useEffect(() => {
-    localStorage.setItem("user", JSON.stringify(currentUser));
-  }, [currentUser]);
+  // useEffect(() => {
+  //   localStorage.setItem("user", JSON.stringify(currentUser));
+  // }, [currentUser]);
 
   return (
-    <userContext.Provider value={{ currentUser, signin, signout }}>
+    <UserContext.Provider value={{ currentUser, signin, signout }}>
       {children}
-    </userContext.Provider>
+    </UserContext.Provider>
   );
 };

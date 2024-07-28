@@ -4,7 +4,7 @@ import "../styles/signin.scss";
 import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { userContext } from "@/utilities/UserContext";
+import { UserContext } from "@/utilities/UserContext";
 
 const Signin = () => {
   const [inputs, setInputs] = useState({
@@ -19,7 +19,7 @@ const Signin = () => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const { currentUser, signin } = useContext(userContext);
+  const { currentUser, signin } = useContext(UserContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

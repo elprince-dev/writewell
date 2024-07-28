@@ -3,25 +3,28 @@ import React, { useContext, useEffect, useState } from "react";
 import "../styles/single.scss";
 import Link from "next/link";
 import Menu from "@/components/Menu";
-import { useSearchParams } from "next/navigation";
 import axios from "axios";
 import moment from "moment";
-import { userContext } from "@/utilities/UserContext";
+import { UserContext } from "@/utilities/UserContext";
 const Single = ({ id }) => {
   const [post, setPost] = useState({});
-  const { currentUser } = useContext(userContext);
+  const { currentUser } = useContext(UserContext);
+  console.log(currentUser);
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
         const res = await axios.get(`/api/posts/${id}`);
         setPost(res.data);
+        console.log(data);
       } catch (err) {
         console.log(err);
       }
     };
     fetchPosts();
-  }, [cat]);
+  }, []);
+
+  console.log(currentUser);
   return (
     <div className="single">
       <div className="content">

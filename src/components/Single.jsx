@@ -6,9 +6,11 @@ import Menu from "@/components/Menu";
 import axios from "axios";
 import moment from "moment";
 import { UserContext } from "@/utilities/UserContext";
+import { useRouter } from "next/navigation";
 const Single = ({ id }) => {
   const [post, setPost] = useState({});
   const { currentUser } = useContext(UserContext);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -21,9 +23,17 @@ const Single = ({ id }) => {
       }
     };
     fetchPosts();
+    console.log(post.title);
   }, []);
 
-  console.log(post);
+  const handleDelete = async (e) => {
+    try {
+      await axios.delete(`/api/posts/${id}`);
+      router.push("/");
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <div className="single">
       <div className="content">
@@ -39,11 +49,22 @@ const Single = ({ id }) => {
           </div>
           {currentUser.username === post.username && (
             <div className="edit">
-              <Link href={`/write?edit=${id}`}>
+              <Link
+                href={{
+                  pathname: "/write",
+                  query: {
+                    edit: id,
+                    title: post.title,
+                    desc: post.desc,
+                    img: post.img,
+                    cat: post.cat,
+                  },
+                }}
+              >
                 <img src="/edit.png" />
               </Link>
 
-              <img src="/delete.png" />
+              <img src="/delete.png" onClick={handleDelete} />
             </div>
           )}
         </div>
@@ -51,7 +72,7 @@ const Single = ({ id }) => {
         {post.desc}
       </div>
 
-      <Menu />
+      <Menu cat={post?.cat} />
     </div>
   );
 };

@@ -1,16 +1,53 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "../styles/write.scss";
 import { categories } from "@/components/Navbar";
-const Write = () => {
-  const [value, setValue] = useState("");
-  console.log(categories);
+import axios from "axios";
+import { useSearchParams } from "next/navigation";
+
+const Write = ({}) => {
+  const searchParams = useSearchParams();
+  const initialTitle = searchParams.get("title");
+  const initialDesc = searchParams.get("desc");
+  const initialCat = searchParams.get("cat");
+
+  const [value, setValue] = useState(initialDesc || "");
+  const [title, setTitle] = useState(initialTitle || "");
+  const [file, setFile] = useState(null);
+  const [cat, setCat] = useState(initialCat || "");
+
+  const upload = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      const res = await axios.post("/api/upload", formData);
+      console.log("this function is excuted");
+      return res.data;
+    } catch (err) {
+      console.log("error happened");
+      console.log(err);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const filename = await upload();
+    const imgUrl = `/uplods/${filename}`;
+
+    try {
+    } catch (err) {}
+  };
   return (
     <div className="add">
       <div className="content">
-        <input type="text" placeholder="Title" />
+        <input
+          type="text"
+          value={title}
+          placeholder="Title"
+          onChange={(e) => setTitle(e.target.value)}
+        />
         <div className="editorContainer">
           <ReactQuill
             theme="snow"
@@ -29,22 +66,35 @@ const Write = () => {
           <span>
             <b>Visibility: </b> Public
           </span>
-          <input style={{ display: "none" }} type="file" id="file" />
+          <input
+            style={{ display: "none" }}
+            type="file"
+            id="file"
+            name="file"
+            onChange={(e) => setFile(e.target.files[0])}
+          />
           <label className="file" htmlFor="file">
             Upload Image
           </label>
           <div className="buttons">
             <button>Save as a draft</button>
-            <button>Update</button>
+            <button onClick={handleSubmit}>Publish</button>
           </div>
         </div>
         <div className="item">
           <h1>Category</h1>
-          {categories.map((cat) => (
-            <div key={cat} className="cat">
-              <input type="radio" name="cat" value={cat} id={cat} />
-              <label htmlFor={cat}>
-                {cat.charAt(0).toUpperCase() + cat.slice(1)}
+          {categories.map((category) => (
+            <div key={category} className="cat">
+              <input
+                type="radio"
+                name="cat"
+                value={cat}
+                id={category}
+                checked={category === cat}
+                onChange={(e) => setCat(e.target.value)}
+              />
+              <label htmlFor={category}>
+                {category.charAt(0).toUpperCase() + category.slice(1)}
               </label>
             </div>
           ))}

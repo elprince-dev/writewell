@@ -6,12 +6,14 @@ import "../styles/write.scss";
 import { categories } from "@/components/Navbar";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
+import moment from "moment";
 
 const Write = ({}) => {
   const searchParams = useSearchParams();
   const initialTitle = searchParams.get("title");
   const initialDesc = searchParams.get("desc");
   const initialCat = searchParams.get("cat");
+  const id = searchParams.get("id");
 
   const [value, setValue] = useState(initialDesc || "");
   const [title, setTitle] = useState(initialTitle || "");
@@ -37,6 +39,20 @@ const Write = ({}) => {
     const imgUrl = `/uplods/${filename}`;
 
     try {
+      id
+        ? await axios.put(`/api/posts/${id}`, {
+            title,
+            desc: value,
+            cat,
+            img: file ? imgUrl : "",
+          })
+        : await axios.post(`/api/posts`, {
+            title,
+            desc: value,
+            cat,
+            img: file ? imgUrl : "",
+            date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss")
+          });
     } catch (err) {}
   };
   return (

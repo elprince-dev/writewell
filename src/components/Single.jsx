@@ -53,7 +53,7 @@ const Single = ({ id }) => {
                 href={{
                   pathname: "/write",
                   query: {
-                    edit: id,
+                    id: id,
                     title: post.title,
                     desc: post.desc,
                     img: post.img,

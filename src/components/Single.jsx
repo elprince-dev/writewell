@@ -7,6 +7,7 @@ import axios from "axios";
 import moment from "moment";
 import { UserContext } from "@/utilities/UserContext";
 import { useRouter } from "next/navigation";
+import DOMPurify from "dompurify";
 const Single = ({ id }) => {
   const [post, setPost] = useState({});
   const { currentUser } = useContext(UserContext);
@@ -34,6 +35,7 @@ const Single = ({ id }) => {
       console.log(err);
     }
   };
+
   return (
     <div className="single">
       <div className="content">
@@ -69,7 +71,11 @@ const Single = ({ id }) => {
           )}
         </div>
         <h1>{post.title}</h1>
-        {post.desc}
+        <p
+          dangerouslySetInnerHTML={{
+            __html: DOMPurify.sanitize(post.desc),
+          }}
+        ></p>
       </div>
 
       <Menu cat={post?.cat} />

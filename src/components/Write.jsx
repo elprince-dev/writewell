@@ -5,7 +5,7 @@ import "react-quill/dist/quill.snow.css";
 import "../styles/write.scss";
 import { categories } from "@/components/Navbar";
 import axios from "axios";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import moment from "moment";
 
 const Write = ({}) => {
@@ -19,6 +19,8 @@ const Write = ({}) => {
   const [title, setTitle] = useState(initialTitle || "");
   const [file, setFile] = useState(null);
   const [cat, setCat] = useState(initialCat || "");
+
+  const router = useRouter()
 
   const upload = async () => {
     try {
@@ -36,7 +38,7 @@ const Write = ({}) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const filename = await upload();
-    const imgUrl = `/uplods/${filename}`;
+    const imgUrl = filename ? `/uploads/${filename.filename}` : "";
 
     try {
       id
@@ -51,8 +53,9 @@ const Write = ({}) => {
             desc: value,
             cat,
             img: file ? imgUrl : "",
-            date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss")
+            date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
           });
+          router.push("/");
     } catch (err) {}
   };
   return (
@@ -87,6 +90,7 @@ const Write = ({}) => {
             type="file"
             id="file"
             name="file"
+            required
             onChange={(e) => setFile(e.target.files[0])}
           />
           <label className="file" htmlFor="file">
@@ -106,7 +110,7 @@ const Write = ({}) => {
                 name="cat"
                 value={cat}
                 id={category}
-                checked={category === cat}
+                checked={cat ? category === cat : null}
                 onChange={(e) => setCat(e.target.value)}
               />
               <label htmlFor={category}>

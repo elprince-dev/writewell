@@ -9,17 +9,18 @@
   background-color: $lightGreen;
   flex-direction: column;
   h1 {
-    font-size: 20px;
-    color: $teal;
+    font-size: 36px;
+    color: $white;
     margin-bottom: 20px;
   }
   form {
+    border-radius: 0.8em;
     display: flex;
     flex-direction: column;
     padding: 50px;
     background-color: $white;
-    width: 200px;
-    gap: 20px;
+    width: 270px;
+    gap: 30px;
     input {
       padding: 10px;
       border: none;
@@ -28,9 +29,10 @@
     button {
       padding: 10px;
       border: none;
-      background-color: $teal;
+      background-color: $lightGreen;
       cursor: pointer;
       color: $white;
+      border-radius: 0.7em;
     }
     p {
       font-size: 12px;

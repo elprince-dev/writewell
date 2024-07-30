@@ -27,7 +27,7 @@ const Signin = () => {
     try {
       // await axios.post("/api/auth/signin", inputs);
       await signin(inputs);
-      setSuccess("You have signed in successfully successfully!");
+      setSuccess("You have signed in successfully!");
       setTimeout(() => {
         router.push("/");
       }, 1500);

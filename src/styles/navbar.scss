@@ -36,11 +36,12 @@
         justify-content: center;
         font-weight: 300;
         border: 1px solid white;
+        color: white;
 
         &:hover {
-          color: $teal;
+          color: $lightGreen;
           background-color: $white;
-          border: 1px solid $teal;
+          border: 1px solid $lightGreen;
         }
       }
     }

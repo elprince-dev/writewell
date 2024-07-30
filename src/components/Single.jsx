@@ -13,6 +13,10 @@ const Single = ({ id }) => {
   const { currentUser } = useContext(UserContext);
   const router = useRouter();
 
+  if (!currentUser) {
+    router.push("/signin");
+  }
+
   useEffect(() => {
     const fetchPosts = async () => {
       try {

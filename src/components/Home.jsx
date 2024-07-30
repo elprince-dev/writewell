@@ -3,12 +3,13 @@ import React, { useEffect, useState } from "react";
 import "../styles/home.scss";
 import Link from "next/link";
 import axios from "axios";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
   const searchParams = useSearchParams();
   const cat = searchParams.get("cat");
+  const router = useRouter();
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -72,7 +73,9 @@ const Home = () => {
                 <h1>{post.title}</h1>
               </Link>
               <p>{getText(post.desc)}</p>
-              <button>Read More</button>
+              <button onClick={() => router.push(`/post/${post.id}`)}>
+                Read More
+              </button>
             </div>
           </div>
         ))}

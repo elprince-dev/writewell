@@ -2,9 +2,11 @@
 import React, { useState, useEffect } from "react";
 import "../styles/menu.scss";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const Menu = ({ cat }) => {
   const [posts, setPosts] = useState([]);
+  const router = useRouter()
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -57,7 +59,9 @@ const Menu = ({ cat }) => {
         <div className="post" key={post.id}>
           <img src={post.img} alt="" />
           <h2>{post.title}</h2>
-          <button>Read More</button>
+          <button onClick={() => router.push(`/post/${post.id}`)}>
+            Read More
+          </button>
         </div>
       ))}
     </div>

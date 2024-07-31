@@ -26,6 +26,20 @@
       border: none;
       border-bottom: 1px solid $grey;
     }
+    label {
+      border: 1px solid $lightGreen;
+      padding: 0.5em;
+      width: 50%;
+      text-align: center;
+      cursor: pointer;
+      border-radius: 1em;
+      margin: 0 auto;
+      transition: 0.2s ease-in-out;
+      &:hover {
+        background-color: $lightGreen;
+        color: $white;
+      }
+    }
     button {
       padding: 10px;
       border: none;

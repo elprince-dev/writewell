@@ -27,8 +27,9 @@ const Register = () => {
     try {
       await axios.post("/api/auth/register", inputs);
       setSuccess("User has been registered successfully!");
-      setTimeout(() => {router.push("/signin");}, 2000);
-      
+      setTimeout(() => {
+        router.push("/signin");
+      }, 2000);
     } catch (err) {
       setError(err.response.data);
     }
@@ -72,6 +73,17 @@ const Register = () => {
           name="password"
           onChange={handleChange}
         />
+        <input
+          style={{ display: "none" }}
+          type="file"
+          placeholder="file"
+          name="file"
+          id="file"
+          onChange={handleChange}
+        />
+        <label className="file" htmlFor="file">
+          Upload Image
+        </label>
         <button onClick={handleSubmit} type="submit">
           Register
         </button>

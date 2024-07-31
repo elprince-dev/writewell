@@ -3,11 +3,10 @@ import { query } from "@/config/db";
 import path from "path";
 import { writeFile } from "fs/promises";
 
-//source: https://medium.com/@irwantoalvin/how-to-upload-file-to-the-directory-using-next-js-app-router-prismaorm-mysql-and-postman-d6e3a5ba5054
-
 export async function POST(req) {
   const formData = await req.formData();
   const file = formData.get("file");
+  console.log(file);
 
   if (!file) {
     return new Response(JSON.stringify({ error: "No files received." }), {
@@ -17,7 +16,6 @@ export async function POST(req) {
 
   const buffer = Buffer.from(await file.arrayBuffer());
   const filename = Date.now() + file.name.replaceAll(" ", "_");
-  
 
   try {
     await writeFile(

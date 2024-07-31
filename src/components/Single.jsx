@@ -28,7 +28,6 @@ const Single = ({ id }) => {
       }
     };
     fetchPosts();
-    console.log(post.title);
   }, []);
 
   const handleDelete = async (e) => {

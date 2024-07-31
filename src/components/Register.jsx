@@ -16,16 +16,41 @@ const Register = () => {
   const [err, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const router = useRouter();
+  const [file, setFile] = useState(null);
 
   const handleChange = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  const upload = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      console.log(file);
+      const res = await axios.post("/api/upload", formData);
+      console.log("this function is excuted");
+      return res.data;
+    } catch (err) {
+      console.log("error happened");
+      console.log(err);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    let imgUrl;
+    if (file) {
+      const filename = await upload();
+      imgUrl = `/uploads/${filename.filename}`;
+    } else {
+      // New post without an uploaded image
+      imgUrl = "/default.png";
+    }
+
     try {
-      await axios.post("/api/auth/register", inputs);
+      console.log(inputs);
+      await axios.post("/api/auth/register", { ...inputs, img: imgUrl });
       setSuccess("User has been registered successfully!");
       setTimeout(() => {
         router.push("/signin");
@@ -79,7 +104,7 @@ const Register = () => {
           placeholder="file"
           name="file"
           id="file"
-          onChange={handleChange}
+          onChange={(e) => setFile(e.target.files[0])}
         />
         <label className="file" htmlFor="file">
           Upload Image

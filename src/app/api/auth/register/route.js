@@ -3,7 +3,8 @@ import bcrypt from "bcryptjs";
 
 export async function POST(req) {
   // Parse the request body
-  const { first_name, last_name, username, email, password } = await req.json();
+  const { first_name, last_name, username, email, password, img } =
+    await req.json();
 
   //check if user exists
   const q = "SELECT * FROM users WHERE username = ? or email = ?";
@@ -24,8 +25,8 @@ export async function POST(req) {
 
   //Create user
   const user_q =
-    "INSERT INTO users(first_name, last_name, username, email, password) VALUES (?,?,?,?,?)";
-  const values = [first_name, last_name, username, email, hash];
+    "INSERT INTO users(first_name, last_name, username, email, password, img) VALUES (?,?,?,?,?,?)";
+  const values = [first_name, last_name, username, email, hash, img];
   const user = await query({
     query: user_q,
     values: values,

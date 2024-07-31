@@ -51,10 +51,11 @@
           background-color: $white;
           border: 1px solid $teal;
           color: $teal;
+          margin-top: 1em;
           &:hover {
             border: 1px solid white;
             background-color: $lightGreen;
-            color: $black;
+            color: $white;
           }
         }
         .link {

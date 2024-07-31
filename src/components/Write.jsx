@@ -20,12 +20,13 @@ const Write = ({}) => {
   const [file, setFile] = useState(null);
   const [cat, setCat] = useState(initialCat || "");
 
-  const router = useRouter()
+  const router = useRouter();
 
   const upload = async () => {
     try {
       const formData = new FormData();
       formData.append("file", file);
+      console.log(file);
       const res = await axios.post("/api/upload", formData);
       console.log("this function is excuted");
       return res.data;
@@ -37,27 +38,52 @@ const Write = ({}) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const filename = await upload();
-    const imgUrl = filename ? `/uploads/${filename.filename}` : "";
+
+    // const filename = file ? await upload() : undefined;
+
+    let imgUrl;
+    if (file) {
+      const filename = await upload();
+      imgUrl = `/uploads/${filename.filename}`;
+    } else if (!id) {
+      // New post without an uploaded image
+      imgUrl = "/default-post.jpg";
+    }
+
+    const postData = {
+      title,
+      desc: value,
+      cat,
+      img: imgUrl,
+      date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
+    };
+    // const imgUrl = filename
+    //   ? `/uploads/${filename.filename}`
+    //   : id
+    //   ? undefined
+    //   : "/logo-color.png";
 
     try {
-      id
-        ? await axios.put(`/api/posts/${id}`, {
-            title,
-            desc: value,
-            cat,
-            img: file ? imgUrl : "",
-          })
-        : await axios.post(`/api/posts`, {
-            title,
-            desc: value,
-            cat,
-            img: file ? imgUrl : "",
-            date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
-          });
-          router.push("/");
-    } catch (err) {}
+      if (id) {
+        // Editing an existing post
+        await axios.put(`/api/posts/${id}`, {
+          ...postData,
+          img: file ? imgUrl : undefined, // Only update image if a new one is uploaded
+        });
+      } else {
+        // Creating a new post
+        await axios.post(`/api/posts`, postData);
+      }
+      router.push("/");
+    } catch (err) {
+      console.error(err);
+    }
   };
+
+  /// edit   --- upload new--- upload
+  //         --- no upload  --- no change
+  ///new     ---- upload ---- upload
+  //         ----- no upload --- default pic
   return (
     <div className="add">
       <div className="content">

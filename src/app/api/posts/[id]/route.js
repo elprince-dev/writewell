@@ -47,12 +47,11 @@ export async function DELETE(req, { params }) {
   }
 }
 
-export async function PUT(req, { params}) {
+export async function PUT(req, { params }) {
   const { id } = params;
   const cookieStore = cookies();
   const token = cookieStore.get("access_token")?.value;
   const reqData = await req.json();
-  console.log("token is" + token);
 
   if (!token) {
     return new Response(JSON.stringify("Not authenticated"), {
@@ -62,21 +61,27 @@ export async function PUT(req, { params}) {
 
   try {
     const userInfo = jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET);
-    console.log("use info is " + userInfo);
-    console.log("request data is " + reqData);
 
-    const data = await query({
-      query:
-        "UPDATE posts SET `title`=?, `img`=?, `desc`=?, `cat`=? WHERE `id` = ? AND `user_id` = ?",
-      values: [
-        reqData.title,
-        reqData.img,
-        reqData.desc,
-        reqData.cat,
-        id,
-        userInfo.id,
-      ],
-    });
+    if (reqData.img) {
+      const data = await query({
+        query:
+          "UPDATE posts SET `title`=?, `img`=?, `desc`=?, `cat`=? WHERE `id` = ? AND `user_id` = ?",
+        values: [
+          reqData.title,
+          reqData.img,
+          reqData.desc,
+          reqData.cat,
+          id,
+          userInfo.id,
+        ],
+      });
+    } else {
+      const data = await query({
+        query:
+          "UPDATE posts SET `title`=?, `desc`=?, `cat`=? WHERE `id` = ? AND `user_id` = ?",
+        values: [reqData.title, reqData.desc, reqData.cat, id, userInfo.id],
+      });
+    }
 
     return new Response(JSON.stringify("Post updated"), { status: 200 });
   } catch (err) {

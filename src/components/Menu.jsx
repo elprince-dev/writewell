@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 
 const Menu = ({ cat }) => {
   const [posts, setPosts] = useState([]);
-  const router = useRouter()
+  const router = useRouter();
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -55,7 +55,7 @@ const Menu = ({ cat }) => {
   return (
     <div className="menu">
       <h1>Other posts you may like</h1>
-      {posts.map((post) => (
+      {posts.slice(0, 2).map((post) => (
         <div className="post" key={post.id}>
           <img src={post.img} alt="" />
           <h2>{post.title}</h2>

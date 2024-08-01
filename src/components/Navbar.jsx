@@ -15,6 +15,7 @@ export const categories = [
 
 const Navbar = () => {
   const { currentUser, signout } = useContext(UserContext);
+  console.log(currentUser);
   return (
     <div className="navbar">
       <div className="navbar_container">
@@ -29,10 +30,20 @@ const Navbar = () => {
               <h6>{cat.toUpperCase()}</h6>
             </Link>
           ))}
-          <span>{currentUser?.username}</span>
+
           {currentUser ? (
-            <span onClick={signout}>Sign out</span>
+            <img src={currentUser.img ? currentUser.img : "/default.png"} />
+          ) : null}
+          
+          <Link href="/myBlogs" className="myBlogs">
+            @{currentUser?.username}
+          </Link>
+          {currentUser ? (
+            <Link onClick={signout} className="link" href="/signin">
+              Sign out
+            </Link>
           ) : (
+            // <span onClick={signout}>Sign out</span>
             <Link className="link" href="/signin">
               Sign in
             </Link>

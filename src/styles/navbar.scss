@@ -2,6 +2,7 @@
 
 .navbar {
   .navbar_container {
+    border-bottom: 1px solid rgba(218, 218, 218, 0.8);
     padding: 10px 0px;
     display: flex;
     align-items: center;
@@ -15,16 +16,37 @@
       display: flex;
       gap: 10px;
       align-items: center;
+      .myBlogs {
+        text-decoration: none;
+        color: inherit;
+
+      }
       .link {
         text-decoration: none;
         color: inherit;
+
         h6 {
           font-size: 16px;
           font-weight: 300;
+          padding: 0.5em;
+          border-radius: 0.5em;
+          transition: 0.2s ease-out;
+          &:hover
+          {
+            background-color: $lightGreen;
+            color: white;
+          }
         }
       }
       span {
         cursor: pointer;
+      }
+      img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-left: 2em;
       }
       .write {
         background-color: $lightGreen;

@@ -7,9 +7,46 @@
   align-items: center;
   h1 {
     margin-bottom: 1em;
+    color: $lightGreen;
   }
   form {
-    
+    display: flex;
+    flex-direction: column;
+    gap: 1.15em;
+    .field {
+      display: flex;
+
+      gap: 0.6em;
+      label {
+        color: $lightGreen;
+        width: 300px;
+        // width: fit-content;
+        white-space: nowrap;
+        display: flex;
+        align-items: center;
+      }
+      input {
+        width: 100%;
+        padding: 10px;
+        border-radius: 0.5em;
+        border: none;
+        border: 1px solid rgba($lightGreen, 1);
+      }
+    }
+
+    button {
+      border-radius: 0.5em;
+      width: 100%;
+      padding: 10px;
+      border: none;
+      cursor: pointer;
+      background-color: $lightGreen;
+      color: $white;
+      transition: 0.2s ease-out;
+      &:hover {
+        background-color: rgb(169, 0, 0);
+      }
+    }
   }
 }
 

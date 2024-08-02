@@ -15,7 +15,6 @@ export const categories = [
 
 const Navbar = () => {
   const { currentUser, signout } = useContext(UserContext);
-  console.log(currentUser);
   return (
     <div className="navbar">
       <div className="navbar_container">

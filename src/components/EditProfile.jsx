@@ -1,15 +1,17 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "../styles/editProfile.scss";
 import Link from "next/link";
+import { UserContext } from "@/utilities/UserContext";
 
 const EditProfile = () => {
+  const { currentUser } = useContext(UserContext);
+  console.log(currentUser);
   const [inputs, setInputs] = useState({
-    first_name: "",
-    last_name: "",
-    username: "",
-    email: "",
-    password: "",
+    first_name: currentUser?.first_name || "",
+    last_name: currentUser?.last_name || "",
+    username: currentUser?.username || "",
+    email: currentUser?.email || "",
   });
 
   const handleSubmit = async (e) => {};
@@ -54,6 +56,7 @@ const EditProfile = () => {
               placeholder={field.label}
               name={field.name}
               id={field.name}
+              value={inputs[field.name]}
               onChange={handleChange}
             />
           </div>

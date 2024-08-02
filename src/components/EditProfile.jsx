@@ -3,6 +3,8 @@ import React, { useState, useContext } from "react";
 import "../styles/editProfile.scss";
 import Link from "next/link";
 import { UserContext } from "@/utilities/UserContext";
+import { useRouter } from "next/navigation";
+import axios from "axios";
 
 const EditProfile = () => {
   const { currentUser } = useContext(UserContext);
@@ -14,7 +16,22 @@ const EditProfile = () => {
     email: currentUser?.email || "",
   });
 
-  const handleSubmit = async (e) => {};
+  const [err, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
+  const router = useRouter();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.put("/api/auth/editProfile", inputs);
+      setSuccess("User info has been updated successfully!");
+      setTimeout(() => {
+        router.push("/");
+      }, 2000);
+    } catch (err) {
+      setError(err.response.data);
+    }
+  };
   const handleChange = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
@@ -41,6 +58,7 @@ const EditProfile = () => {
       type: "email",
     },
   ];
+
   return (
     <div className="editProfile">
       <h1>Edit Profile</h1>
@@ -65,8 +83,8 @@ const EditProfile = () => {
         <button onClick={handleSubmit} type="submit">
           Update Profile
         </button>
-        {/* {err && <p>{err}</p>}
-        {success && <p>{success}</p>} */}
+        {err && <p className="error">{err}</p>}
+        {success && <p className="success">{success}</p>}
       </form>
     </div>
   );

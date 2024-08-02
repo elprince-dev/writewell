@@ -1,9 +1,14 @@
 @use "variables" as *;
 
 .editProfile {
+  border: 1px solid rgba($lightGreen, 1);
+  width: 50%;
+  margin: 0 auto;
+  padding: 2em;
+  border-radius: 1em;
   display: flex;
   flex-direction: column;
-  margin-top: 4em;
+  margin-top: 3em;
   align-items: center;
   h1 {
     margin-bottom: 1em;
@@ -12,7 +17,7 @@
   form {
     display: flex;
     flex-direction: column;
-    gap: 1.15em;
+    gap: 3em;
     .field {
       display: flex;
 
@@ -46,6 +51,18 @@
       &:hover {
         background-color: rgb(169, 0, 0);
       }
+    }
+    .error {
+      color: red;
+    }
+    .success {
+      color: green;
+    }
+    p {
+      font-weight: 300;
+      margin: 0 auto;
+      margin-top: -1em;
+      
     }
   }
 }

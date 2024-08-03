@@ -4,7 +4,9 @@ import axios from "axios";
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem("user") ||null ));
+  const [currentUser, setCurrentUser] = useState(
+    JSON.parse(localStorage.getItem("user") || null)
+  );
   //   const [currentUser, setCurerntUser] = useState(JSON.parse(localStorage.getItem("user") ||null);
 
   const signin = async (inputs) => {
@@ -21,6 +23,7 @@ export const UserProvider = ({ children }) => {
     try {
       await axios.post("/api/auth/signout");
       setCurrentUser(null);
+      localStorage.removeItem("user");
     } catch (err) {
       console.error("Signout failed", err);
     }

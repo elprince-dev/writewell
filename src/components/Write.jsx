@@ -80,12 +80,12 @@ const Write = ({}) => {
         await axios.post(`/api/posts`, postData);
       }
 
-      if (isClient) {
-        // Only use router.push on the client-side
-        useEffect(() => {
-          router.push("/");
-        }, []);
-      }
+       if (isClient) {
+         // Only use router.push on the client-side
+         
+         router.push("/");
+       }
+      
     } catch (err) {
       console.error(err);
     }

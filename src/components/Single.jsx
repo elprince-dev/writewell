@@ -20,11 +20,7 @@ const Single = ({ id }) => {
   if (!currentUser) {
     if (isClient) {
       // Only use router.push on the client-side
-      useEffect(() => {
-        router.push("/signin");
-      }, []);
-      
-    }
+      router.push("/signin");
   }
 
   useEffect(() => {
@@ -45,10 +41,8 @@ const Single = ({ id }) => {
       await axios.delete(`/api/posts/${id}`);
       if (isClient) {
         // Only use router.push on the client-side
-        useEffect(() => {
-          router.push("/");
-        }, []);
-        
+
+        router.push("/");
       }
     } catch (err) {
       console.log(err);

@@ -3,6 +3,7 @@ import React, { useContext } from "react";
 import "../styles/navbar.scss";
 import Link from "next/link";
 import { UserContext } from "@/utilities/UserContext";
+import { useRouter } from "next/navigation";
 
 export const categories = [
   "art",
@@ -15,6 +16,10 @@ export const categories = [
 
 const Navbar = () => {
   const { currentUser, signout } = useContext(UserContext);
+  const router = useRouter();
+  if (!currentUser) {
+    router.push("/signin");
+  }
   return (
     <div className="navbar">
       <div className="navbar_container">
@@ -33,7 +38,7 @@ const Navbar = () => {
           {currentUser ? (
             <img src={currentUser.img ? currentUser.img : "/default.png"} />
           ) : null}
-          
+
           <Link href="/myBlogs" className="myBlogs">
             @{currentUser?.username}
           </Link>

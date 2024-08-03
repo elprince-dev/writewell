@@ -21,6 +21,7 @@ const Single = ({ id }) => {
     if (isClient) {
       // Only use router.push on the client-side
       router.push("/signin");
+    }
   }
 
   useEffect(() => {

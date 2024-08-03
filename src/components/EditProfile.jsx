@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import "../styles/editProfile.scss";
 import Link from "next/link";
 import { UserContext } from "@/utilities/UserContext";

@@ -1,9 +1,14 @@
-import React from "react";
+// app/myBlogs/page.js (or your page component)
 
+import React, { Suspense } from "react";
 import MyBlogs from "@/components/MyBlogs";
 
-const page = () => {
-  return <MyBlogs />;
+const MyBlogsPage = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <MyBlogs />
+    </Suspense>
+  );
 };
 
-export default page;
+export default MyBlogsPage;

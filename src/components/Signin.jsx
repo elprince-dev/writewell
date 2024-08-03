@@ -57,7 +57,7 @@ const Signin = () => {
         {err && <p>{err}</p>}
         {success && <p>{success}</p>}
         <span>
-          Don't you have an account? <Link href="/register">Register</Link>
+          Don&apos;t you have an account? <Link href="/register">Register</Link>
         </span>
       </form>
     </div>

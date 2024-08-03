@@ -24,7 +24,9 @@ const Navbar = () => {
   if (!currentUser) {
     if (isClient) {
       // Only use router.push on the client-side
-      router.push("/signin");
+      useEffect(() => {
+        router.push("/signin");
+      }, []);
     }
   }
   return (

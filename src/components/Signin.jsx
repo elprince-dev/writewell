@@ -35,7 +35,10 @@ const Signin = () => {
       setTimeout(() => {
         if (isClient) {
           // Only use router.push on the client-side
-          router.push("/");
+          useEffect(() => {
+            router.push("/");
+          }, []);
+          
         }
         r;
       }, 1500);

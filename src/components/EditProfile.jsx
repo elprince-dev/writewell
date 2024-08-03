@@ -33,7 +33,10 @@ const EditProfile = () => {
       setTimeout(() => {
         if (isClient) {
           // Only use router.push on the client-side
-          router.push("/");
+          useEffect(() => {
+            router.push("/");
+          }, []);
+          
         }
       }, 2000);
     } catch (err) {

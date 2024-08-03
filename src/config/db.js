@@ -12,11 +12,11 @@ import mysql from "mysql2/promise";
 export async function query({ query, values = [] }) {
   //connect
   const dbconnection = await mysql.createConnection({
-    host: process.env.NEXT_PUBLIC_DB_HOST_PROD,
-    user: process.env.NEXT_PUBLIC_DB_USER_PROD,
-    database: process.env.NEXT_PUBLIC_DB_NAME_PROD,
-    password: process.env.NEXT_PUBLIC_DB_PASSWORD_PROD,
-    port: process.env.NEXT_PUBLIC_DB_PORT_PROD,
+    host: "localhost", //process.env.NEXT_PUBLIC_DB_HOST_PROD,
+    user: "mohamed", //process.env.NEXT_PUBLIC_DB_USER_PROD,
+    database: process.env.NEXT_PUBLIC_DB_NAME,
+    password: process.env.NEXT_PUBLIC_DB_PASSWORD,
+    port: process.env.NEXT_PUBLIC_DB_PORT,
   });
 
   try {

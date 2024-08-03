@@ -68,7 +68,10 @@ const Menu = ({ cat }) => {
             onClick={() => {
               if (isClient) {
                 // Only use router.push on the client-side
-                router.push(`/post/${post.id}`);
+                useEffect(() => {
+                  router.push(`/post/${post.id}`);
+                }, []);
+                
               }
             }}
           >

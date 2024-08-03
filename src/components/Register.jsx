@@ -59,9 +59,10 @@ const Register = () => {
       setTimeout(() => {
         if (isClient) {
           // Only use router.push on the client-side
-          router.push("/signin");
+          useEffect(() => {
+            router.push("/signin");
+          }, []);
         }
-        
       }, 2000);
     } catch (err) {
       setError(err.response.data);

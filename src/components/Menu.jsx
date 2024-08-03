@@ -8,6 +8,11 @@ const Menu = ({ cat }) => {
   const [posts, setPosts] = useState([]);
   const router = useRouter();
 
+  const [isClient, setIsClient] = useState(false);
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -59,7 +64,14 @@ const Menu = ({ cat }) => {
         <div className="post" key={post.id}>
           <img src={post.img} alt="" />
           <h2>{post.title}</h2>
-          <button onClick={() => router.push(`/post/${post.id}`)}>
+          <button
+            onClick={() => {
+              if (isClient) {
+                // Only use router.push on the client-side
+                router.push(`/post/${post.id}`);
+              }
+            }}
+          >
             Read More
           </button>
         </div>

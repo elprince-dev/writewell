@@ -17,6 +17,10 @@ const Register = () => {
   const [success, setSuccess] = useState(null);
   const router = useRouter();
   const [file, setFile] = useState(null);
+  const [isClient, setIsClient] = useState(false);
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const handleChange = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -53,7 +57,11 @@ const Register = () => {
       await axios.post("/api/auth/register", { ...inputs, img: imgUrl });
       setSuccess("User has been registered successfully!");
       setTimeout(() => {
-        router.push("/signin");
+        if (isClient) {
+          // Only use router.push on the client-side
+          router.push("/signin");
+        }
+        
       }, 2000);
     } catch (err) {
       setError(err.response.data);

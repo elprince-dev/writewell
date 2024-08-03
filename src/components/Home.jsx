@@ -11,6 +11,11 @@ const Home = () => {
   const cat = searchParams.get("cat");
   const router = useRouter();
 
+  const [isClient, setIsClient] = useState(false);
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -73,7 +78,14 @@ const Home = () => {
                 <h1>{post.title}</h1>
               </Link>
               <p>{getText(post.desc)}</p>
-              <button onClick={() => router.push(`/post/${post.id}`)}>
+              <button
+                onClick={() => {
+                  if (isClient) {
+                    // Only use router.push on the client-side
+                    router.push(`/post/${post.id}`);
+                  }
+                }}
+              >
                 Read More
               </button>
             </div>

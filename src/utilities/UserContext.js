@@ -18,7 +18,7 @@ export const UserProvider = ({ children }) => {
     try {
       const res = await axios.post("/api/auth/signin", inputs);
       setCurrentUser(res.data);
-      localStorage.setItem("user", JSON.stringify(res.data));
+      window.localStorage.setItem("user", JSON.stringify(res.data));
     } catch (err) {
       console.error("Signin failed", err);
     }

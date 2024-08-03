@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import "../styles/signin.scss";
 import Link from "next/link";
 import axios from "axios";
@@ -13,6 +13,10 @@ const Signin = () => {
   });
   const [err, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+  const [isClient, setIsClient] = useState(false);
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
   const router = useRouter();
 
   const handleChange = (e) => {
@@ -29,7 +33,11 @@ const Signin = () => {
       await signin(inputs);
       setSuccess("You have signed in successfully!");
       setTimeout(() => {
-        router.push("/");
+        if (isClient) {
+          // Only use router.push on the client-side
+          router.push("/");
+        }
+        r;
       }, 1500);
     } catch (err) {
       setError(err.response.data);

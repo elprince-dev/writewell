@@ -20,13 +20,21 @@ const EditProfile = () => {
   const [success, setSuccess] = useState(null);
   const router = useRouter();
 
+  const [isClient, setIsClient] = useState(false);
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await axios.put("/api/auth/editProfile", inputs);
       setSuccess("User info has been updated successfully!");
       setTimeout(() => {
-        router.push("/");
+        if (isClient) {
+          // Only use router.push on the client-side
+          router.push("/");
+        }
       }, 2000);
     } catch (err) {
       setError(err.response.data);

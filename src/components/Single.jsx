@@ -11,10 +11,17 @@ import DOMPurify from "dompurify";
 const Single = ({ id }) => {
   const [post, setPost] = useState({});
   const { currentUser } = useContext(UserContext);
+  const [isClient, setIsClient] = useState(false);
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
   const router = useRouter();
 
   if (!currentUser) {
-    router.push("/signin");
+    if (isClient) {
+      // Only use router.push on the client-side
+      router.push("/signin");
+    }
   }
 
   useEffect(() => {
@@ -33,7 +40,11 @@ const Single = ({ id }) => {
   const handleDelete = async (e) => {
     try {
       await axios.delete(`/api/posts/${id}`);
-      router.push("/");
+      if (isClient) {
+        // Only use router.push on the client-side
+        router.push("/");
+      }
+      
     } catch (err) {
       console.log(err);
     }

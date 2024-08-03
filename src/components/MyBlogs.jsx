@@ -4,13 +4,12 @@ import "../styles/myBlogs.scss";
 import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 const MyBlogs = () => {
   const [posts, setPosts] = useState([]);
   const searchParams = useSearchParams();
   const cat = searchParams.get("cat");
-  const router = useRouter();
 
   useEffect(() => {
     const fetchPosts = async () => {

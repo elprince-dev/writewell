@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import "../styles/navbar.scss";
 import Link from "next/link";
 import { UserContext } from "@/utilities/UserContext";
@@ -17,8 +17,15 @@ export const categories = [
 const Navbar = () => {
   const { currentUser, signout } = useContext(UserContext);
   const router = useRouter();
+  const [isClient, setIsClient] = useState(false);
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
   if (!currentUser) {
-    router.push("/signin");
+    if (isClient) {
+      // Only use router.push on the client-side
+      router.push("/signin");
+    }
   }
   return (
     <div className="navbar">

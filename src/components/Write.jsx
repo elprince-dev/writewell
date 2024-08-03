@@ -19,8 +19,13 @@ const Write = ({}) => {
   const [title, setTitle] = useState(initialTitle || "");
   const [file, setFile] = useState(null);
   const [cat, setCat] = useState(initialCat || "");
+  const [isClient, setIsClient] = useState(false);
 
   const router = useRouter();
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const upload = async () => {
     try {
@@ -74,7 +79,12 @@ const Write = ({}) => {
         // Creating a new post
         await axios.post(`/api/posts`, postData);
       }
-      router.push("/");
+
+       if (isClient) {
+         // Only use router.push on the client-side
+         router.push("/");
+       }
+      
     } catch (err) {
       console.error(err);
     }

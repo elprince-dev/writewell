@@ -49,7 +49,7 @@ const Write = ({}) => {
     let imgUrl;
     if (file) {
       const filename = await upload();
-      imgUrl = `/uploads/${filename.filename}`;
+      imgUrl = filename.filename;
     } else if (!id) {
       // New post without an uploaded image
       imgUrl = "/default-post.jpg";
@@ -80,12 +80,11 @@ const Write = ({}) => {
         await axios.post(`/api/posts`, postData);
       }
 
-       if (isClient) {
-         // Only use router.push on the client-side
-         
-         router.push("/");
-       }
-      
+      if (isClient) {
+        // Only use router.push on the client-side
+
+        router.push("/");
+      }
     } catch (err) {
       console.error(err);
     }

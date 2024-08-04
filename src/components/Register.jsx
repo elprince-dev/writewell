@@ -46,7 +46,7 @@ const Register = () => {
     let imgUrl;
     if (file) {
       const filename = await upload();
-      imgUrl = `/uploads/${filename.filename}`;
+      imgUrl = filename.filename;
     } else {
       // New post without an uploaded image
       imgUrl = "/default.png";

@@ -1,12 +1,3 @@
-// import mysql from "mysql2/promise";
-
-// export const connection = await mysql.createConnection({
-//   host: "localhost",
-//   user: "mohamed",
-//   database: process.env.NEXT_PUBLIC_DB_NAME,
-//   password: process.env.NEXT_PUBLIC_DB_PASSWORD,
-// });
-
 import mysql from "mysql2/promise";
 
 export async function query({ query, values = [] }) {

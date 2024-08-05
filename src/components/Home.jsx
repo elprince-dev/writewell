@@ -1,9 +1,10 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "../styles/home.scss";
 import Link from "next/link";
 import axios from "axios";
 import { useRouter, useSearchParams } from "next/navigation";
+import { UserContext } from "@/utilities/UserContext";
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
@@ -14,6 +15,15 @@ const Home = () => {
   const [isClient, setIsClient] = useState(false);
   useEffect(() => {
     setIsClient(true);
+
+    const checkUser = () => {
+      const { currentUser } = useContext(UserContext);
+      if (!currentUser) {
+        router.push("/signin");
+      }
+
+      checkUser();
+    };
   }, []);
 
   useEffect(() => {
@@ -27,7 +37,6 @@ const Home = () => {
     };
     fetchPosts();
   }, [cat]);
-
 
   const getText = (html) => {
     const doc = new DOMParser().parseFromString(html, "text/html");

@@ -1,14 +1,17 @@
 @use "variables" as *;
 
 footer {
-  margin-top: 100px;
+  // margin-top: 100px;
+  position: fixed;
+  bottom: 0;
   padding: 20px;
+  width: calc(1024px - 40px);
   background-color: rgba($lightGreen, 0.5);
   display: flex;
   align-items: center;
   justify-content: space-between;
   font-size: 12px;
-  width: 100%;
+  // width: 100%;
   img {
     height: 20px;
   }

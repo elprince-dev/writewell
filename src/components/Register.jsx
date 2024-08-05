@@ -30,9 +30,9 @@ const Register = () => {
     try {
       const formData = new FormData();
       formData.append("file", file);
-      console.log(file);
       const res = await axios.post("/api/upload", formData);
       console.log("this function is excuted");
+      console.log(res.data);
       return res.data;
     } catch (err) {
       console.log("error happened");
@@ -46,6 +46,7 @@ const Register = () => {
     let imgUrl;
     if (file) {
       const filename = await upload();
+      console.log(filename);
       imgUrl = filename.filePath;
     } else {
       // New post without an uploaded image

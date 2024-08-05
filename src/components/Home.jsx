@@ -11,19 +11,18 @@ const Home = () => {
   const searchParams = useSearchParams();
   const cat = searchParams.get("cat");
   const router = useRouter();
+  const { currentUser } = useContext(UserContext);
 
   const [isClient, setIsClient] = useState(false);
   useEffect(() => {
     setIsClient(true);
 
     const checkUser = () => {
-      const { currentUser } = useContext(UserContext);
       if (!currentUser) {
         router.push("/signin");
       }
-
-      checkUser();
     };
+    checkUser();
   }, []);
 
   useEffect(() => {

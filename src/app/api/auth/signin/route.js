@@ -30,10 +30,7 @@ export async function POST(req) {
   }
 
   //generate JWT token
-  const token = jwt.sign(
-    { id: data[0].id },
-    process.env.NEXT_PUBLIC_JWT_SECRET
-  );
+  const token = jwt.sign({ id: data[0].id }, process.env.JWT_SECRET);
 
   const { password, ...other } = data[0];
   // Create headers object

@@ -49,7 +49,7 @@ const Write = ({}) => {
     let imgUrl;
     if (file) {
       const filename = await upload();
-      imgUrl = filename.filename;
+      imgUrl = filename.filePath;
     } else if (!id) {
       // New post without an uploaded image
       imgUrl = "/default-post.jpg";

@@ -29,7 +29,7 @@ export async function POST(req) {
   const cookieStore = cookies();
   const token = cookieStore.get("access_token")?.value;
   const reqData = await req.json();
-  console.log("token is" + token);
+  console.log(reqData);
 
   if (!token) {
     return new Response(JSON.stringify("Not authenticated"), {
@@ -38,13 +38,13 @@ export async function POST(req) {
   }
 
   try {
-    const userInfo = jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET);
-    console.log("use info is " + userInfo);
+    const userInfo = jwt.verify(token, process.env.JWT_SECRET);
+    console.log("user info is " + userInfo.id);
     console.log("request data is " + reqData);
 
     const data = await query({
       query:
-        "INSERT INTO posts (`title`, `img`, `desc`, `cat`, `date`, `user_id`) VALUES (?,?,?,?,?,?)",
+        "INSERT INTO posts(`title`, `img`, `desc`, `cat`, `date`, `user_id`, `public`) VALUES (?,?,?,?,?,?,?)",
       values: [
         reqData.title,
         reqData.img,
@@ -52,13 +52,16 @@ export async function POST(req) {
         reqData.cat,
         reqData.date,
         userInfo.id,
+        1,
       ],
     });
+    console.log("Data inserted successfully:", data);
 
     return new Response(JSON.stringify("Post created"), { status: 200 });
   } catch (err) {
-    return new Response(JSON.stringify("Invalid token"), {
-      status: 403,
+    console.error("Error inserting data:", err);
+    return new Response(JSON.stringify("Error creating post"), {
+      status: 500,
     });
   }
 }

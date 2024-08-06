@@ -76,6 +76,7 @@ const Write = ({}) => {
           img: file ? imgUrl : undefined, // Only update image if a new one is uploaded
         });
       } else {
+        console.log("category is " + cat);
         // Creating a new post
         await axios.post(`/api/posts`, postData);
       }
@@ -144,9 +145,9 @@ const Write = ({}) => {
               <input
                 type="radio"
                 name="cat"
-                value={cat}
+                value={category}
                 id={category}
-                checked={cat ? category === cat : null}
+                checked={category === cat}
                 onChange={(e) => setCat(e.target.value)}
               />
               <label htmlFor={category}>

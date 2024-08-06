@@ -4,25 +4,16 @@ import "../styles/home.scss";
 import Link from "next/link";
 import axios from "axios";
 import { useRouter, useSearchParams } from "next/navigation";
-import { UserContext } from "@/utilities/UserContext";
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
   const searchParams = useSearchParams();
   const cat = searchParams.get("cat");
   const router = useRouter();
-  const { currentUser } = useContext(UserContext);
 
   const [isClient, setIsClient] = useState(false);
   useEffect(() => {
     setIsClient(true);
-
-    const checkUser = () => {
-      if (!currentUser) {
-        router.push("/signin");
-      }
-    };
-    checkUser();
   }, []);
 
   useEffect(() => {

@@ -60,7 +60,7 @@ export async function PUT(req, { params }) {
   }
 
   try {
-    const userInfo = jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET);
+    const userInfo = jwt.verify(token, process.env.JWT_SECRET);
 
     if (reqData.img) {
       const data = await query({

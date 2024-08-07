@@ -16,6 +16,7 @@ export const categories = [
 
 const Navbar = () => {
   const { currentUser, signout } = useContext(UserContext);
+  console.log(currentUser);
   const router = useRouter();
   const [isClient, setIsClient] = useState(false);
   useEffect(() => {

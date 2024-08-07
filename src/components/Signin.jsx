@@ -33,10 +33,10 @@ const Signin = () => {
       await signin(inputs);
       setSuccess("You have signed in successfully!");
       setTimeout(() => {
-        if (isClient) {
-          // Only use router.push on the client-side
-          router.push("/");
-        }
+        router.push("/");
+        // if (isClient) {
+        //   // Only use router.push on the client-side
+        // }
         r;
       }, 1500);
     } catch (err) {

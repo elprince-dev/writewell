@@ -3,56 +3,33 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { serialize } from "cookie";
 
-// Function to add CORS headers
-function addCorsHeaders(response) {
-  response.headers.set("Access-Control-Allow-Origin", "*");
-  response.headers.set(
-    "Access-Control-Allow-Methods",
-    "GET,OPTIONS,PATCH,DELETE,POST,PUT"
-  );
-  response.headers.set(
-    "Access-Control-Allow-Headers",
-    "Content-Type, Authorization"
-  );
-}
-
-export async function OPTIONS() {
-  const headers = new Headers();
-  addCorsHeaders({ headers });
-  return new Response(null, { headers });
-}
-
 export async function POST(req) {
   const request = await req.json();
 
-  // Check if user exists
+  //check if user exists
   const q = "SELECT * FROM users WHERE username = ?";
   const data = await query({
     query: q,
     values: [request.username],
   });
   if (data.length === 0) {
-    const response = new Response(JSON.stringify("User not found!"), {
+    return new Response(JSON.stringify("User not found!"), {
       status: 404,
     });
-    addCorsHeaders(response);
-    return response;
   }
 
-  // Verify password
+  //verify password
   const isPasswordCorrect = bcrypt.compareSync(
     request.password,
     data[0].password
   );
   if (!isPasswordCorrect) {
-    const response = new Response(JSON.stringify("Invalid password!"), {
+    return new Response(JSON.stringify("Invalid password!"), {
       status: 401,
     });
-    addCorsHeaders(response);
-    return response;
   }
 
-  // Generate JWT token
+  //generate JWT token
   const token = jwt.sign({ id: data[0].id }, process.env.JWT_SECRET);
 
   const { password, ...other } = data[0];
@@ -70,11 +47,9 @@ export async function POST(req) {
     })
   );
 
-  // Add CORS headers
-  addCorsHeaders({ headers });
-
   return new Response(JSON.stringify(other), {
     status: 200,
     headers: headers,
   });
 }
+

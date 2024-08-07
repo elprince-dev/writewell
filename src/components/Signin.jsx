@@ -38,7 +38,7 @@ const Signin = () => {
           // Only use router.push on the client-side
           router.push("/");
         }
-      }, 1500);
+      }, 100000);
     } catch (err) {
       console.error("Sign-in error:", err); // Log error for debugging
       if (err.response) {

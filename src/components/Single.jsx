@@ -35,7 +35,7 @@ const Single = ({ id }) => {
       }
     };
     fetchPosts();
-  }, []);
+  });
 
   const handleDelete = async (e) => {
     try {
@@ -53,9 +53,9 @@ const Single = ({ id }) => {
   return (
     <div className="single">
       <div className="content">
-        <img src={post?.img} />
+        <img src={post?.img} alt="" />
         <div className="user">
-          <img src={post.userImg ? post.userImg : "/default.png"} />
+          <img src={post.userImg ? post.userImg : "/default.png"} alt="" />
 
           <div className="info">
             <span>
@@ -77,10 +77,10 @@ const Single = ({ id }) => {
                   },
                 }}
               >
-                <img src="/edit.png" />
+                <img src="/edit.png" alt="" />
               </Link>
 
-              <img src="/delete.png" onClick={handleDelete} />
+              <img src="/delete.png" onClick={handleDelete} alt="" />
             </div>
           )}
         </div>

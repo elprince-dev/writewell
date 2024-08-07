@@ -20,7 +20,6 @@ const Navbar = () => {
   const [isClient, setIsClient] = useState(false);
   useEffect(() => {
     setIsClient(true);
-
   }, []);
 
   return (
@@ -39,7 +38,10 @@ const Navbar = () => {
           ))}
 
           {currentUser ? (
-            <img src={currentUser.img ? currentUser.img : "/default.png"} />
+            <img
+              src={currentUser.img ? currentUser.img : "/default.png"}
+              alt=""
+            />
           ) : null}
 
           <Link href="/myBlogs" className="myBlogs">

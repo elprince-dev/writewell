@@ -3,7 +3,6 @@ import React, { useContext, useState, useEffect } from "react";
 import "../styles/navbar.scss";
 import Link from "next/link";
 import { UserContext } from "@/utilities/UserContext";
-import { useRouter } from "next/navigation";
 
 export const categories = [
   "art",
@@ -16,8 +15,6 @@ export const categories = [
 
 const Navbar = () => {
   const { currentUser, signout } = useContext(UserContext);
-  console.log(currentUser);
-  const router = useRouter();
   const [isClient, setIsClient] = useState(false);
   useEffect(() => {
     setIsClient(true);

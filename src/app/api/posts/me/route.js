@@ -14,7 +14,7 @@ export async function GET(req) {
   }
 
   try {
-    const userInfo = jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET);
+    const userInfo = jwt.verify(token, process.env.JWT_SECRET);
 
     const q = "SELECT * FROM posts WHERE user_id=?";
     const data = await query({

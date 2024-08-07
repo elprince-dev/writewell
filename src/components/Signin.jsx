@@ -27,6 +27,7 @@ const Signin = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError(null); // Reset error state before attempting sign in
 
     try {
       // await axios.post("/api/auth/signin", inputs);
@@ -37,10 +38,14 @@ const Signin = () => {
           // Only use router.push on the client-side
           router.push("/");
         }
-        ;
       }, 1500);
     } catch (err) {
-      setError(err.response.data);
+      console.error("Sign-in error:", err); // Log error for debugging
+      if (err.response) {
+        setError(err.response.data); // Display error message if available
+      } else {
+        setError("An unknown error occurred. Please try again.");
+      }
     }
   };
   return (

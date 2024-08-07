@@ -14,15 +14,21 @@ export const UserProvider = ({ children }) => {
     }
   }, []);
 
-  const signin = async (inputs) => {
-    try {
-      const res = await axios.post("/api/auth/signin", inputs);
-      setCurrentUser(res.data);
-      window.localStorage.setItem("user", JSON.stringify(res.data));
-    } catch (err) {
-      console.error("Signin failed", err);
+const signin = async (inputs) => {
+  try {
+    console.log("Signin attempt with inputs:", inputs);
+    const res = await axios.post("/api/auth/signin", inputs);
+    console.log("Signin response:", res.data);
+    setCurrentUser(res.data);
+    window.localStorage.setItem("user", JSON.stringify(res.data));
+  } catch (err) {
+    console.error("Signin failed:", err);
+    if (err.response) {
+      console.error("Error response data:", err.response.data);
+      console.error("Error response status:", err.response.status);
     }
-  };
+  }
+};
 
   const signout = async () => {
     try {

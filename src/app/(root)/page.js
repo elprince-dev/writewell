@@ -4,11 +4,11 @@ import React, { useEffect, useContext } from "react";
 import "./page.scss";
 import Home from "@/components/Home";
 import { Suspense } from "react";
-import { UserContext } from "@/utilities/UserContext";
-import { useRouter } from "next/navigation";
+// import { UserContext } from "@/utilities/UserContext";
+// import { useRouter } from "next/navigation";
 
 export default function page() {
-  const { currentUser } = useContext(UserContext);
+  // const { currentUser } = useContext(UserContext);
   // const router = useRouter();
 
   // useEffect(() => {

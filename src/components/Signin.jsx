@@ -36,7 +36,7 @@ const Signin = () => {
           if (isClient) {
             router.push("/");
           }
-        }, 1500);
+        }, 200000);
       }
     } catch (err) {
       console.error("Sign-in error:", err); // Log error for debugging

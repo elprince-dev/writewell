@@ -2,6 +2,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import "../styles/signin.scss";
 import Link from "next/link";
+import axios from "axios";
 import { useRouter } from "next/navigation";
 import { UserContext } from "@/utilities/UserContext";
 
@@ -22,31 +23,24 @@ const Signin = () => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const { currentUser, signin } = useContext(UserContext);
+  const { signin } = useContext(UserContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null); // Reset error state before attempting sign in
 
     try {
+      // await axios.post("/api/auth/signin", inputs);
       await signin(inputs);
       setSuccess("You have signed in successfully!");
-      if (!err) {
-        setTimeout(() => {
-          if (isClient) {
-            router.push("/");
-          }
-        }, 200000);
-      }
+      setTimeout(() => {
+        if (isClient) {
+          // Only use router.push on the client-side
+          router.push("/");
+        }
+      }, 1500);
     } catch (err) {
-      console.error("Sign-in error:", err); // Log error for debugging
-      if (err.response && err.response.data) {
-        setError(err.response.data); // Display error message if available
-      } else if (err.message) {
-        setError(err.message); // Display error message if available
-      } else {
-        setError("An unknown error occurred. Please try again.");
-      }
+      setError(err.response.data);
     }
   };
   return (

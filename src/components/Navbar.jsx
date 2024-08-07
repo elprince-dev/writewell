@@ -36,11 +36,17 @@ const Navbar = () => {
           ))}
 
           {currentUser ? (
-            <img
-              src={currentUser.img ? currentUser.img : "/default.png"}
-              alt=""
-            />
-          ) : null}
+            <Link href="/editProfile" className="profile_img">
+              <img
+                src={currentUser.img ? currentUser.img : "/default.png"}
+                alt=""
+              />
+            </Link>
+          ) : // <img
+          //   src={currentUser.img ? currentUser.img : "/default.png"}
+          //   alt=""
+          // />
+          null}
 
           <Link href="/myBlogs" className="myBlogs">
             @{currentUser?.username}

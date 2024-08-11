@@ -65,8 +65,50 @@
         }
       }
     }
+    .button {
+      display: none;
+    }
   }
 }
 
 @media (max-width: 768px) {
+  .navbar {
+    .navbar_container {
+      .logoButton {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        align-items: center;
+      }
+      flex-direction: column;
+      .button {
+        display: block;
+        padding: 10px;
+      }
+      .block {
+        display: block;
+      }
+      .hidden {
+        display: none;
+      }
+      .links {
+        .write_container {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          .write {
+ 
+          }
+        }
+
+        .link {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 10px 0;
+        }
+      }
+    }
+  }
 }

@@ -14,15 +14,12 @@ const Single = ({ id }) => {
   const [isClient, setIsClient] = useState(false);
   useEffect(() => {
     setIsClient(true);
-  }, []);
-  const router = useRouter();
-
-  if (!currentUser) {
-    if (isClient) {
+    if (!currentUser) {
       // Only use router.push on the client-side
       router.push("/signin");
     }
-  }
+  }, [currentUser]);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -63,7 +60,7 @@ const Single = ({ id }) => {
             </span>
             <p>posted {moment(post.date).fromNow()}</p>
           </div>
-          {currentUser.username === post.username && (
+          {currentUser && currentUser.username === post.username && (
             <div className="edit">
               <Link
                 href={{

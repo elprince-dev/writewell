@@ -79,4 +79,29 @@
 }
 
 @media (max-width: 768px) {
+  .home {
+    padding: 0 5%;
+   .posts {
+      gap: 50px;
+      .post {
+        flex-direction: column;
+        gap: 30px;
+        &:nth-child(2n + 1) {
+          flex-direction: column;
+          gap: 30px;
+        }
+        .content {
+          gap: 20px;
+          
+        }
+        h1 {
+          font-size: 32px;
+        }
+        p {
+          font-size: 16px;
+          line-height: 1.5;
+        }
+      }
+    }
+  }
 }

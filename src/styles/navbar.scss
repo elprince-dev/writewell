@@ -7,10 +7,14 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    .logo {
+    .logoButton {
+      .logo {
       img {
         width: 200px;
       }
+
+    }
+    
     }
     .links {
       display: flex;
@@ -79,6 +83,13 @@
         justify-content: space-between;
         width: 100%;
         align-items: center;
+        .logo {
+          padding-left: 10px;
+
+          img {
+            width: 150px;
+          }
+        }
       }
       flex-direction: column;
       .button {

@@ -19,7 +19,7 @@
 </p>
 
 <p align="center">
-		<em>Live on</em> <a href="writewell.vercel.app">writewell.vercel.app</a>
+	<em>Live on</em> <a href="https://writewell.vercel.app">writewell.vercel.app</a>
 </p>
 
 <hr>

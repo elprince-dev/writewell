@@ -12,13 +12,13 @@ const Single = ({ id }) => {
   const [post, setPost] = useState({});
   const { currentUser } = useContext(UserContext);
   const [isClient, setIsClient] = useState(false);
-  useEffect(() => {
-    setIsClient(true);
-    if (!currentUser) {
-      // Only use router.push on the client-side
-      router.push("/signin");
-    }
-  }, [currentUser]);
+  // useEffect(() => {
+  //   setIsClient(true);
+  //   if (!currentUser) {
+  //     // Only use router.push on the client-side
+  //     router.push("/signin");
+  //   }
+  // }, [currentUser]);
   const router = useRouter();
 
   useEffect(() => {
@@ -32,7 +32,7 @@ const Single = ({ id }) => {
       }
     };
     fetchPosts();
-  });
+  }, []);
 
   const handleDelete = async (e) => {
     try {

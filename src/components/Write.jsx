@@ -75,9 +75,7 @@ const Write = ({}) => {
         });
       } else {
         // Creating a new post
-        const response = await axios.post(`/api/posts`, postData);
-        console.log("This is done");
-        console.log("response is: " + response);
+        await axios.post(`/api/posts`, postData);
       }
 
       if (isClient) {
@@ -89,7 +87,7 @@ const Write = ({}) => {
       console.error("Error object:", err);
       if (err.response && err.response.status === 401) {
         console.error("Redirecting due to 401 error");
-        router.push("/"); // Redirect to the home page
+        router.push("/signin"); // Redirect to the home page
       }
     }
   };

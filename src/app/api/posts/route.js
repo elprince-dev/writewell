@@ -38,7 +38,8 @@ export async function POST(req) {
   }
 
   try {
-    const userInfo = jwt.verify(token, process.env.JWT_SECRET);
+    const access_token = process.env.JWT_SECRET;
+    const userInfo = jwt.verify(token, access_token);
     console.log("user info is " + userInfo.id);
     console.log("request data is " + reqData);
 

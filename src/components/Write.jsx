@@ -33,10 +33,8 @@ const Write = ({}) => {
       formData.append("file", file);
       console.log(file);
       const res = await axios.post("/api/upload", formData);
-      console.log("this function is excuted");
       return res.data;
     } catch (err) {
-      console.log("error happened");
       console.log(err);
     }
   };
@@ -76,9 +74,10 @@ const Write = ({}) => {
           img: file ? imgUrl : undefined, // Only update image if a new one is uploaded
         });
       } else {
-        console.log("category is " + cat);
         // Creating a new post
-        await axios.post(`/api/posts`, postData);
+        const response = await axios.post(`/api/posts`, postData);
+        console.log("This is done");
+        console.log("response is: " + response);
       }
 
       if (isClient) {
@@ -87,7 +86,11 @@ const Write = ({}) => {
         router.push("/");
       }
     } catch (err) {
-      console.error(err);
+      console.error("Error object:", err);
+      if (err.response && err.response.status === 401) {
+        console.error("Redirecting due to 401 error");
+        router.push("/"); // Redirect to the home page
+      }
     }
   };
 
